@@ -1,23 +1,30 @@
 jQuery(document).ready(function($) {
 
-  var img1 = new Image();
-  var img2 = new Image();
+  var fm = {
 
-  var fm = {};
+    init: function() {
 
-  fm.canvas = $('canvas.canvas')[0]
-  var ctx = fm.canvas.getContext('2d');
-  fm.canvas.width = $(window).width();
-  fm.canvas.height = $(window).height();
-  var imgRatio  = fm.canvas.height/fm.canvas.width;
+      fm.numImages = 2;
+      fm.imgIndex = 0;
+      fm.canvas = $('canvas.canvas')[0]
+      fm.ctx = fm.canvas.getContext('2d');
+      fm.canvas.width = $(window).width();
+      fm.canvas.height = $(window).height();
+      fm.imgRatio  = fm.canvas.height/fm.canvas.width;
 
-  stripe = function(index, numFrames, bandwidth, img) {
+      newImg(0);
 
-    ctx.save(); // pre clip
+    }
+
+  };
+
+  var stripe = function(index, numFrames, bandwidth, img) {
+
+    fm.ctx.save(); // pre clip
 
     bandwidth = bandwidth || 10;
 
-    ctx.beginPath();
+    fm.ctx.beginPath();
 
     offset = index * bandwidth
 
@@ -25,81 +32,67 @@ jQuery(document).ready(function($) {
 
       var x = bandwidth * i + offset;
 
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, fm.canvas.height);
-      ctx.lineTo(x + bandwidth, fm.canvas.height);
-      ctx.lineTo(x + bandwidth, 0);
-      ctx.lineTo(x, 0);
+      fm.ctx.moveTo(x, 0);
+      fm.ctx.lineTo(x, fm.canvas.height);
+      fm.ctx.lineTo(x + bandwidth, fm.canvas.height);
+      fm.ctx.lineTo(x + bandwidth, 0);
+      fm.ctx.lineTo(x, 0);
 
     }
 
-    ctx.clip();
+    fm.ctx.clip();
 
     // now draw shit
 
-    ctx.drawImage(img, 0, 0, fm.canvas.width, fm.canvas.width * imgRatio);
+    fm.ctx.drawImage(img, 0, 0, fm.canvas.width, fm.canvas.width * fm.imgRatio);
 
-    ctx.restore(); // pre clip
+    fm.ctx.restore(); // pre clip
     
   };
 
-  img1.onload = function() {
+  var newImg = function(index) {
 
-    stripe(0, 2, 10, this);
+    var img = new Image();
+ 
+    img.onload = function() {
+ 
+      stripe(index, fm.numImages, 10, this);
+ 
+    }
+
+    // disable old listener
+    $("#file-select input.file").off('change');
+
+    $("#file-select input.file").change(function(e) {
+ 
+      var reader = new FileReader(),
+          f = e.target.files[0];
+  
+      // Closure to capture the file information.
+      reader.onload = (function(file) {
+  
+        return function(e) {
+  
+          img.src = e.target.result;
+  
+        };
+  
+      })(f);
+    
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+
+      fm.imgIndex += 1;
+      if (fm.imgIndex == fm.numImages) fm.imgIndex = 0;
+      newImg(fm.imgIndex);
+
+    });
 
   }
 
-  img2.onload = function() {
 
-    stripe(1, 2, 10, this);
+  fm.init();
 
-  }
-
-
-
-
-  $("#file-select input.file1").change(function(e) {
-
-    var reader = new FileReader(),
-        f1 = e.target.files[0];
- 
- 
-    // Closure to capture the file information.
-    reader.onload = (function(file) {
- 
-      return function(e) {
- 
-        img1.src = e.target.result;
- 
-      };
- 
-    })(f1);
-  
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f1);
-  });
-
-
-  $("#file-select input.file2").change(function(e) {
-
-    var reader = new FileReader(),
-        f2 = e.target.files[0];
- 
- 
-    // Closure to capture the file information.
-    reader.onload = (function(file) {
- 
-      return function(e) {
- 
-        img2.src = e.target.result;
- 
-      };
- 
-    })(f2);
-  
-    // Read in the image file as a data URL.
-    reader.readAsDataURL(f2);
-  });
 
   $('.save').click(function(e) {
 

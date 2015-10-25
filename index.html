@@ -8,6 +8,7 @@
 
     <link href="bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
     <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="film-moire.css" rel="stylesheet">
 
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
@@ -25,14 +26,17 @@
     <p class="instructions">Upload an image to create a vector file.</p>
 -->
     <div class="controls">
+      <a style="display:none;" class="btn btn-lg btn-inverse btn-options"><i class="fa fa-cog"></i></a>
+      <div class="title">
+        <b>Film Moire</b>
+      </div>
+      <div style="float:right;">
+        <a title="film-moire.jpg" class="btn btn-lg btn-inverse save" target="_blank"><i class="fa fa-save"></i></a>
+      </div>
       <span id="file-select" class="upload">
-        <input class="file1" type="file" />
-        <input class="file2" type="file" />
+        <input class="file" type="file" />
       </span>
       <!--<a class="btn btn-lg btn-inverse upload"><i class="fa fa-upload"></i></a>-->
-      <!--<a class="btn btn-lg btn-inverse cut"><i class="fa fa-cut"></i></a>-->
-      <a title="film-moire.jpg" class="btn btn-lg btn-inverse save" target="_blank"><i class="fa fa-save"></i></a>
-      <a style="display:none;" class="btn btn-lg btn-inverse btn-options"><i class="fa fa-cog"></i></a>
     </div>
 
   </body>
