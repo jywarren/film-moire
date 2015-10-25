@@ -102,6 +102,7 @@ jQuery(document).ready(function($) {
   });
 
   $('.save').click(function(e) {
+
     var event, format, lnk;
     lnk = document.createElement("a");
     lnk.href = fm.canvas.toDataURL("image/jpeg");
@@ -118,7 +119,9 @@ jQuery(document).ready(function($) {
     } else if (lnk.fireEvent) {
       lnk.fireEvent("onclick");
     }
+
     return true;
+
   });
 
 });
