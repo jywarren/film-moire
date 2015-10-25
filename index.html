@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    
+    <title>VectorCam</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="bower_components/bootstrap-css/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet">
+
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/bootstrap-css/js/bootstrap.min.js"></script>
+    <script src="film-moire.js"></script>
+
+  </head>
+
+  <body>
+
+    <canvas class="canvas"></canvas>
+
+    <!--<h1><a href="https://github.com/jywarren/vectorcam">VectorCam</a></h1>
+
+    <p style="display:none;" class="spinner"><i class="fa fa-spinner fa-spin"></i></p>
+    <p class="instructions">Upload an image to create a vector file.</p>
+-->
+    <div class="controls">
+      <span id="file-select" class="upload">
+        <input class="file1" type="file" />
+        <input class="file2" type="file" />
+      </span>
+      <!--<a class="btn btn-lg btn-inverse upload"><i class="fa fa-upload"></i></a>-->
+      <!--<a class="btn btn-lg btn-inverse cut"><i class="fa fa-cut"></i></a>-->
+      <a title="film-moire.jpg" class="btn btn-lg btn-inverse save" target="_blank"><i class="fa fa-save"></i></a>
+      <a style="display:none;" class="btn btn-lg btn-inverse btn-options"><i class="fa fa-cog"></i></a>
+    </div>
+
+  </body>
+</html>
